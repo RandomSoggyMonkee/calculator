@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+#container,
+#buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container {
+    box-shadow: 3px 3px 10px 2px black;
+    width: 500px;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+#buttonContainer {
+
+}
+
+#displayContainer {
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 190px;
+    margin-bottom: 2px;
+    padding: 0 3px;
+}
+
+#display {
+    text-align: end;
+}
+
+button {
+    height: 25px;
+    width: 45px;
+    margin-bottom: 2px;
+    box-shadow: 1px 1px 2px black;
+}
+
+button:active { 
+    box-shadow: none;
+    transform: scale(0.99);
+}
