@@ -9,22 +9,9 @@ let secondNum = 0;
 let opperator;
 let total = 0;
 
-const operate = function(a, o, b) {
-    if (o === '+') {
-        return add(a,b);
-    }else if (o === '-') {
-        return subtract(a,b);
-    }else if (o === '*') {
-        return multiply(a,b);
-    }else if (o === '/') {
-        return divide(a,b);
-    }else if  (o === '**') {
-        return power(a, b);
-    };
-};
+const output = document.querySelector('#display');
 
 const numberButtons = document.querySelectorAll('.numberBtn');
-const output = document.querySelector('#display');
 numberButtons.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
         let value = e.target.textContent;
@@ -43,11 +30,25 @@ clearBtn.addEventListener('click', function() {
 
 const eraseBtn = document.querySelector('#erase');
 eraseBtn.addEventListener('click', function() {
-    if (output === '0') {
+    if (output.textContent === '0') {
         return;
-    }else if (output.length == 1) {
+    }else if (output.textContent.length === 1) {
         output.textContent = '0';
     }else {
         output.textContent = output.textContent.slice(0, -1);
     };
 });
+
+const operate = function(a, o, b) {
+    if (o === '+') {
+        return add(a,b);
+    }else if (o === '-') {
+        return subtract(a,b);
+    }else if (o === '*') {
+        return multiply(a,b);
+    }else if (o === '/') {
+        return divide(a,b);
+    }else if  (o === '**') {
+        return power(a, b);
+    };
+};
