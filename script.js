@@ -9,35 +9,61 @@ let secondNum = 0;
 let opperator;
 let total = 0;
 
-const output = document.querySelector('#display');
+const outputLower = document.querySelector('#displayLower');
+const outputUpper = document.querySelector('#displayUpper');
 
 const numberButtons = document.querySelectorAll('.numberBtn');
 numberButtons.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
         let value = e.target.textContent;
-        if (output.textContent === '0') {
-            output.textContent = value;
+        if (outputUpper.textContent.includes('=')) {
+            outputUpper.textContent = '';
+            outputLower.textContent = '0';
+        };
+        if (outputLower.textContent === '0') {
+            outputLower.textContent = value;
         }else {
-            output.textContent += value; 
+            outputLower.textContent += value; 
         };
     });
 });
 
 const clearBtn = document.querySelector('#clear');
 clearBtn.addEventListener('click', function() {
-    output.textContent = '0';
+    outputLower.textContent = '0';
+    outputUpper.textContent = '';
 });
 
 const eraseBtn = document.querySelector('#erase');
 eraseBtn.addEventListener('click', function() {
-    if (output.textContent === '0') {
+    if (outputLower.textContent === '0') {
         return;
-    }else if (output.textContent.length === 1) {
-        output.textContent = '0';
+    }else if (outputLower.textContent.length === 1) {
+        outputLower.textContent = '0';
     }else {
-        output.textContent = output.textContent.slice(0, -1);
+        outputLower.textContent = outputLower.textContent.slice(0, -1);
     };
 });
+
+const opperatorBtns = document.querySelectorAll('.opperator')
+opperatorBtns.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+      firstNum = +outputLower.textContent;
+      opperator = e.target.textContent;
+      outputUpper.textContent = `${outputLower.textContent}${e.target.textContent}`;
+      outputLower.textContent = '0';
+    })
+});
+
+const equalsBtn = document.querySelector('#equals');
+equalsBtn.addEventListener('click', function(e) {
+    secondNum = +outputLower.textContent;
+    outputUpper.textContent += outputLower.textContent + '=';
+    outputLower.textContent = operate(firstNum, opperator, secondNum);
+    firstNum = 0;
+    secondNum = 0;
+    opperator = 0;
+})
 
 const operate = function(a, o, b) {
     if (o === '+') {
