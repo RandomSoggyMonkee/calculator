@@ -32,8 +32,14 @@ const operate = function(a, o, b) {
         return power(a, b);
     };
 };
-
-
+    //
+    //
+    //
+    //
+    // need to work on equalsBtn
+    //
+    //
+    //
 
 let currentNum = null;
 let firstNum = null;
@@ -80,6 +86,21 @@ opperatorBtns.forEach(function(btn) {
             opperator = e.target.textContent;
         };
       });
+});
+
+const deciBtn = document.querySelector('#dec')
+deciBtn.addEventListener('click', function() {
+    if (currentNum.includes('.')) return;
+    if (firstNum === null && currentNum === null) {
+        currentNum += '0' + e.target.textContent;
+        output.textContent = currentNum;
+    }else if (firstNum && currentNum === null) {
+        currentNum += '0' + e.target.textContent;
+        output.textContent = currentNum;
+    }else {
+        currentNum += e.target.textContent;
+        output.textContent = currentNum;
+    };
 });
 
 const equalsBtn = document.querySelector('#equals');
