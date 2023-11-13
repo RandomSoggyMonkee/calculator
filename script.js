@@ -1,80 +1,110 @@
+const clear = function() {
+    output.textContent = '0';
+    outputUpper.textContent = '';
+    total = 0;
+    firstNum = null;
+    secondNum = null;
+    currentNum = null;
+    opperator = null;
+};
+
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
 const power = (a, e) => a ** e;
+const divide = function(a, b) {
+    if (b === 0) {
+        clear();
+        return output.textContent = 'Dividing by zero, seriously? >.>';
+    }else a / b;
+};
 
-let firstNum = 0;
-let secondNum = 0;
-let opperator;
-let total = 0;
+const operate = function(a, o, b) {
+    if (o === '+') {
+        return add(a, b);
+    }else if (o === '-') {
+        return subtract(a, b);
+    }else if (o === '*') {
+        return multiply(a, b);
+    }else if (o === '/') {
+        return divide(a, b);
+    }else if  (o === 'Pow') {
+        return power(a, b);
+    };
+};
 
-const outputLower = document.querySelector('#displayLower');
+
+
+let currentNum = null;
+let firstNum = null;
+let secondNum = null;
+let opperator = null;
+let total = null;
+
+const output = document.querySelector('#displayLower');
 const outputUpper = document.querySelector('#displayUpper');
 
-const numberButtons = document.querySelectorAll('.numberBtn');
-numberButtons.forEach(function(btn) {
+
+const numberBtns = document.querySelectorAll('.numberBtn');
+numberBtns.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
-        let value = e.target.textContent;
         if (outputUpper.textContent.includes('=')) {
             outputUpper.textContent = '';
-            outputLower.textContent = '0';
         };
-        if (outputLower.textContent === '0') {
-            outputLower.textContent = value;
-        }else {
-            outputLower.textContent += value; 
+        if (currentNum === null) {
+            currentNum = e.target.textContent;
+            output.textContent = currentNum;
+        }else { 
+            currentNum += e.target.textContent;
+            output.textContent = currentNum;
         };
     });
-});
-
-const clearBtn = document.querySelector('#clear');
-clearBtn.addEventListener('click', function() {
-    outputLower.textContent = '0';
-    outputUpper.textContent = '';
-});
-
-const eraseBtn = document.querySelector('#erase');
-eraseBtn.addEventListener('click', function() {
-    if (outputLower.textContent === '0') {
-        return;
-    }else if (outputLower.textContent.length === 1) {
-        outputLower.textContent = '0';
-    }else {
-        outputLower.textContent = outputLower.textContent.slice(0, -1);
-    };
 });
 
 const opperatorBtns = document.querySelectorAll('.opperator')
 opperatorBtns.forEach(function(btn) {
       btn.addEventListener('click', function(e) {
-      firstNum = +outputLower.textContent;
-      opperator = e.target.textContent;
-      outputUpper.textContent = `${outputLower.textContent}${e.target.textContent}`;
-      outputLower.textContent = '0';
-    })
+        outputUpper.textContent += currentNum + e.target.textContent;
+        if (firstNum === null) {
+            firstNum = currentNum;
+        }else secondNum = currentNum;
+        if (secondNum === null) {
+            currentNum = null;
+            opperator = e.target.textContent;
+        }else {
+            total = operate(+firstNum, opperator, +secondNum);
+            output.textContent = total;
+            firstNum = total
+            secondNum = null;
+            currentNum = null;
+            opperator = e.target.textContent;
+        };
+      });
 });
 
 const equalsBtn = document.querySelector('#equals');
-equalsBtn.addEventListener('click', function(e) {
-    secondNum = +outputLower.textContent;
-    outputUpper.textContent += outputLower.textContent + '=';
-    outputLower.textContent = operate(firstNum, opperator, secondNum);
-    firstNum = 0;
-    secondNum = 0;
-    opperator = 0;
-})
+equalsBtn.addEventListener('click', function() {
+    outputUpper.textContent += currentNum + '=';
+    total = operate(+firstNum, opperator, +currentNum);
+    output.textContent = total;
+    firstNum = total
+    secondNum = null;
+    currentNum = null;
+    opperator = null;
+});
 
-const operate = function(a, o, b) {
-    if (o === '+') {
-        return add(a,b);
-    }else if (o === '-') {
-        return subtract(a,b);
-    }else if (o === '*') {
-        return multiply(a,b);
-    }else if (o === '/') {
-        return divide(a,b);
-    }else if  (o === '**') {
-        return power(a, b);
+const eraseBtn = document.querySelector('#erase');
+eraseBtn.addEventListener('click', function() {
+    if (output.textContent === '0') {
+        return;
+    }else if (output.textContent.length === 1) {
+        output.textContent = '0';
+        currentNum = 0;
+    }else {
+        output.textContent = output.textContent.slice(0, -1);
+        currentNum = currentNum.slice(0, -1);
     };
-};
+});
+
+const clearBtn = document.querySelector('#clear');
+clearBtn.addEventListener('click', clear);
