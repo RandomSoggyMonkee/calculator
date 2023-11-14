@@ -32,11 +32,11 @@ const operate = function(a, o, b) {
         return power(a, b);
     };
 };
+    
+    
     //
     //
-    //
-    //
-    // need to work on equalsBtn
+    // EQUALS BUTTON NEEDS WORK
     //
     //
     //
@@ -70,6 +70,7 @@ numberBtns.forEach(function(btn) {
 const opperatorBtns = document.querySelectorAll('.opperator')
 opperatorBtns.forEach(function(btn) {
       btn.addEventListener('click', function(e) {
+        if (currentNum === null) return;
         outputUpper.textContent += currentNum + e.target.textContent;
         if (firstNum === null) {
             firstNum = currentNum;
@@ -88,10 +89,12 @@ opperatorBtns.forEach(function(btn) {
       });
 });
 
+
 const deciBtn = document.querySelector('#dec')
-deciBtn.addEventListener('click', function() {
-    if (currentNum.includes('.')) return;
-    if (firstNum === null && currentNum === null) {
+deciBtn.addEventListener('click', function(e) {
+    if (output.textContent.includes('.')) {
+        return;
+    }else if (firstNum === null && currentNum === null) {
         currentNum += '0' + e.target.textContent;
         output.textContent = currentNum;
     }else if (firstNum && currentNum === null) {
@@ -105,7 +108,11 @@ deciBtn.addEventListener('click', function() {
 
 const equalsBtn = document.querySelector('#equals');
 equalsBtn.addEventListener('click', function() {
-    outputUpper.textContent += currentNum + '=';
+    if (firstNum === null && currentNum === null) return;
+    if (opperator === null) return;
+    if (currentNum === null) {
+        outputUpper.textContent += '0' + '=';
+    }else outputUpper.textContent += currentNum + '=';
     total = operate(+firstNum, opperator, +currentNum);
     output.textContent = total;
     firstNum = total
