@@ -36,10 +36,7 @@ const operate = function(a, o, b) {
     //
     // ISSUES
     //
-    // NEED TO PREVENT OVERFLOW ON TOP DISPLAY
-    // NEED TO ROUND TOTAL TO A CERTAIN NO. OF DECIMAL PLACES, TO PREVENT OVERFLOW
-    //
-    //
+    // 
     //
 
 let currentNum = null;
@@ -57,6 +54,9 @@ numberBtns.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
         if (outputUpper.textContent.includes('=')) {
             outputUpper.textContent = '';
+            currentNum = e.target.textContent;
+            output.textContent = currentNum;
+            return;
         };
         if (currentNum === null) {
             currentNum = e.target.textContent;
@@ -84,7 +84,9 @@ opperatorBtns.forEach(function(btn) {
             opperator = e.target.textContent;
         }else {
             total = operate(+firstNum, opperator, +secondNum);
-            output.textContent = total;
+            if (!Number.isInteger(total)) {
+                output.textContent = +total.toFixed(10);
+            }else output.textContent = total;
             firstNum = total
             secondNum = null;
             currentNum = null;
@@ -118,7 +120,9 @@ equalsBtn.addEventListener('click', function() {
         outputUpper.textContent += '0' + '=';
     }else outputUpper.textContent += currentNum + '=';
     total = operate(+firstNum, opperator, +currentNum);
-    output.textContent = total;
+    if (!Number.isInteger(total)) {
+        output.textContent = +total.toFixed(10);
+    }else output.textContent = total;
     firstNum = null
     secondNum = null;
     currentNum = total;
