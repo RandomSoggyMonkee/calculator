@@ -33,10 +33,11 @@ const operate = function(a, o, b) {
     };
 };
     
-    
     //
+    // ISSUES
     //
-    // EQUALS BUTTON NEEDS WORK
+    // NEED TO PREVENT OVERFLOW ON TOP DISPLAY
+    // NEED TO ROUND TOTAL TO A CERTAIN NO. OF DECIMAL PLACES, TO PREVENT OVERFLOW
     //
     //
     //
@@ -71,6 +72,9 @@ const opperatorBtns = document.querySelectorAll('.opperator')
 opperatorBtns.forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         if (currentNum === null) return;
+        if (outputUpper.textContent.includes('=')) {
+            outputUpper.textContent = '';
+        };
         outputUpper.textContent += currentNum + e.target.textContent;
         if (firstNum === null) {
             firstNum = currentNum;
@@ -115,9 +119,9 @@ equalsBtn.addEventListener('click', function() {
     }else outputUpper.textContent += currentNum + '=';
     total = operate(+firstNum, opperator, +currentNum);
     output.textContent = total;
-    firstNum = total
+    firstNum = null
     secondNum = null;
-    currentNum = null;
+    currentNum = total;
     opperator = null;
 });
 
