@@ -158,13 +158,6 @@ const equals = function() {
     opperator = null;
 }
 
-    
-    
-    // ISSUES TO FIX
-    //
-    // 
-    //
-    
 
 let currentNum = null;
 let firstNum = null;
