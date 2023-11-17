@@ -62,7 +62,7 @@ const decimal = function() {
         currentNum = '0.';
         output.textContent = currentNum;
     }else if (firstNum && currentNum === null) {
-        currentNum += '0' + '.';
+        currentNum = '0.';
         output.textContent = currentNum;
     }else {
         currentNum += '.';
@@ -150,7 +150,7 @@ const equals = function() {
     total = operate(+firstNum, opperator, +currentNum);
     console.log(total);
     if (!Number.isInteger(total)) {
-        output.textContent = +total.toFixed(104);
+        output.textContent = +total.toFixed(10);
     }else output.textContent = total;
     firstNum = null
     secondNum = null;
