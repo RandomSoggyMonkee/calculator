@@ -59,7 +59,7 @@ const decimal = function() {
     if (output.textContent.includes('.')) {
         return;
     }else if (firstNum === null && currentNum === null) {
-        currentNum += '0' + '.';
+        currentNum = '0.';
         output.textContent = currentNum;
     }else if (firstNum && currentNum === null) {
         currentNum += '0' + '.';
