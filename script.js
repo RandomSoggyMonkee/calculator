@@ -186,6 +186,7 @@ eraseBtn.addEventListener('click', del);
 clearBtn.addEventListener('click', clear);
 
 document.addEventListener('keydown', function(e) {
+    e.preventDefault();
     let name = e.key;
     const opps = ['+', '-', '*', '/', '^'];
     if (Number.isInteger(+name)) {
@@ -196,7 +197,7 @@ document.addEventListener('keydown', function(e) {
         decimal();
     }else if (name === 'Backspace') {
         del();
-    }else if (name === 'Enter') {
+    }else if (name === 'Enter' || name === '=') {
         equals();
     };
 });
