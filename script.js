@@ -1,3 +1,13 @@
+let currentNum = null;
+let firstNum = null;
+let secondNum = null;
+let opperator = null;
+let total = null;
+
+const output = document.querySelector('#displayLower');
+const outputUpper = document.querySelector('#displayUpper');
+
+
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
@@ -10,17 +20,11 @@ const divide = function(a, b) {
 };
 
 const operate = function(a, o, b) {
-    if (o === '+') {
-        return add(a, b);
-    }else if (o === '-') {
-        return subtract(a, b);
-    }else if (o === '*') {
-        return multiply(a, b);
-    }else if (o === '/') {
-        return divide(a, b);
-    }else if  (o === 'Pow' || o === '^') {
-        return power(a, b);
-    };
+    if (o === '+') return add(a, b);
+    if (o === '-') return subtract(a, b);
+    if (o === '*') return multiply(a, b);
+    if (o === '/') return divide(a, b);
+    if  (o === 'Pow' || o === '^') return power(a, b);
 };
 
 const num = function(e) {
@@ -56,9 +60,8 @@ const numKeyInput = function(e) {
 };
 
 const decimal = function() {
-    if (output.textContent.includes('.')) {
-        return;
-    }else if (firstNum === null && currentNum === null) {
+    if (output.textContent.includes('.')) return;
+    if (firstNum === null && currentNum === null) {
         currentNum = '0.';
         output.textContent = currentNum;
     }else if (firstNum && currentNum === null) {
@@ -119,9 +122,8 @@ const opp = function(e) {
   };
 
   const del = function() {
-    if (output.textContent === '0') {
-        return;
-    }else if (output.textContent.length === 1) {
+    if (output.textContent === '0') return;
+    if (output.textContent.length === 1) {
         output.textContent = '0';
         currentNum = 0;
     }else {
@@ -157,22 +159,12 @@ const equals = function() {
 };
 
 
-let currentNum = null;
-let firstNum = null;
-let secondNum = null;
-let opperator = null;
-let total = null;
-
-const output = document.querySelector('#displayLower');
-const outputUpper = document.querySelector('#displayUpper');
-
 const numberBtns = document.querySelectorAll('.numberBtn');
 const opperatorBtns = document.querySelectorAll('.opperator')
 const deciBtn = document.querySelector('#dec')
 const equalsBtn = document.querySelector('#equals');
 const eraseBtn = document.querySelector('#erase');
 const clearBtn = document.querySelector('#clear');
-
 
 numberBtns.forEach(function(btn) {
     btn.addEventListener('click', num);
@@ -189,15 +181,9 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
     let name = e.key;
     const opps = ['+', '-', '*', '/', '^'];
-    if (Number.isInteger(+name)) {
-        numKeyInput(name);
-    }else if (opps.includes(name)) {
-        oppKeyInput(name);
-    }else if (name === '.') {
-        decimal();
-    }else if (name === 'Backspace') {
-        del();
-    }else if (name === 'Enter' || name === '=') {
-        equals();
-    };
+    if (Number.isInteger(+name)) numKeyInput(name);
+    if (opps.includes(name)) oppKeyInput(name);
+    if (name === '.') decimal();
+    if (name === 'Backspace') del();
+    if (name === 'Enter' || name === '=') equals();
 });
