@@ -68,7 +68,7 @@ const decimal = function() {
         currentNum += '.';
         output.textContent = currentNum;
     };
-}
+};
 
 const opp = function(e) {
     if (currentNum === null) return;
@@ -92,7 +92,7 @@ const opp = function(e) {
         currentNum = null;
         opperator = e.target.textContent;
     };
-  }
+  };
 
   const oppKeyInput = function(e) {
     if (currentNum === null) return;
@@ -116,7 +116,7 @@ const opp = function(e) {
         currentNum = null;
         opperator = e;
     };
-  }
+  };
 
   const del = function() {
     if (output.textContent === '0') {
@@ -128,7 +128,7 @@ const opp = function(e) {
         output.textContent = output.textContent.slice(0, -1);
         currentNum = currentNum.slice(0, -1);
     };
-}
+};
 
 const clear = function() {
     output.textContent = '0';
@@ -146,9 +146,7 @@ const equals = function() {
     if (currentNum === null) {
         outputUpper.textContent += '0' + '=';
     }else outputUpper.textContent += currentNum + '=';
-    console.log(+firstNum + opperator + +currentNum);
     total = operate(+firstNum, opperator, +currentNum);
-    console.log(total);
     if (!Number.isInteger(total)) {
         output.textContent = +total.toFixed(10);
     }else output.textContent = total;
@@ -156,7 +154,7 @@ const equals = function() {
     secondNum = null;
     currentNum = total;
     opperator = null;
-}
+};
 
 
 let currentNum = null;
@@ -168,29 +166,24 @@ let total = null;
 const output = document.querySelector('#displayLower');
 const outputUpper = document.querySelector('#displayUpper');
 
-
 const numberBtns = document.querySelectorAll('.numberBtn');
+const opperatorBtns = document.querySelectorAll('.opperator')
+const deciBtn = document.querySelector('#dec')
+const equalsBtn = document.querySelector('#equals');
+const eraseBtn = document.querySelector('#erase');
+const clearBtn = document.querySelector('#clear');
+
+
 numberBtns.forEach(function(btn) {
     btn.addEventListener('click', num);
 });
-
-const opperatorBtns = document.querySelectorAll('.opperator')
 opperatorBtns.forEach(function(btn) {
     btn.addEventListener('click', opp);
 });
-
-const deciBtn = document.querySelector('#dec')
 deciBtn.addEventListener('click', decimal);
-
-const equalsBtn = document.querySelector('#equals');
 equalsBtn.addEventListener('click', equals);
-
-const eraseBtn = document.querySelector('#erase');
 eraseBtn.addEventListener('click', del);
-
-const clearBtn = document.querySelector('#clear');
 clearBtn.addEventListener('click', clear);
-
 
 document.addEventListener('keydown', function(e) {
     let name = e.key;
@@ -207,6 +200,3 @@ document.addEventListener('keydown', function(e) {
         equals();
     };
 });
-
-
-
