@@ -19,7 +19,7 @@ const divide = function(a, b) {
     }else return a / b;
 };
 
-const operate = function(a, o, b) {
+const operate = (a, o, b) => {
     if (o === '+') return add(a, b);
     if (o === '-') return subtract(a, b);
     if (o === '*') return multiply(a, b);
@@ -27,7 +27,7 @@ const operate = function(a, o, b) {
     if  (o === 'Pow' || o === '^') return power(a, b);
 };
 
-const num = function(e) {
+const num = (e) => {
     if (outputUpper.textContent.includes('=')) {
         outputUpper.textContent = '';
         currentNum = e.target.textContent;
@@ -43,7 +43,7 @@ const num = function(e) {
     };
 };
 
-const numKeyInput = function(e) {
+const numKeyInput = (e) => {
     if (outputUpper.textContent.includes('=')) {
         outputUpper.textContent = '';
         currentNum = e;
@@ -59,7 +59,7 @@ const numKeyInput = function(e) {
     };
 };
 
-const decimal = function() {
+const decimal = () => {
     if (output.textContent.includes('.')) return;
     if (firstNum === null && currentNum === null) {
         currentNum = '0.';
@@ -73,7 +73,7 @@ const decimal = function() {
     };
 };
 
-const opp = function(e) {
+const opp = (e) => {
     if (currentNum === null) return;
     if (outputUpper.textContent.includes('=')) {
         outputUpper.textContent = '';
@@ -87,9 +87,7 @@ const opp = function(e) {
         opperator = e.target.textContent;
     }else {
         total = operate(+firstNum, opperator, +secondNum);
-        if (!Number.isInteger(total)) {
-            output.textContent = +total.toFixed(10);
-        }else output.textContent = total;
+        output.textContent = Number.isInteger(total) ? total : +total.toFixed(10);
         firstNum = total
         secondNum = null;
         currentNum = null;
@@ -97,7 +95,7 @@ const opp = function(e) {
     };
   };
 
-  const oppKeyInput = function(e) {
+  const oppKeyInput = (e) => {
     if (currentNum === null) return;
     if (outputUpper.textContent.includes('=')) {
         outputUpper.textContent = '';
@@ -111,9 +109,7 @@ const opp = function(e) {
         opperator = e;
     }else {
         total = operate(+firstNum, opperator, +secondNum);
-        if (!Number.isInteger(total)) {
-            output.textContent = +total.toFixed(10);
-        }else output.textContent = total;
+        output.textContent = Number.isInteger(total) ? total : +total.toFixed(10);
         firstNum = total
         secondNum = null;
         currentNum = null;
@@ -121,7 +117,7 @@ const opp = function(e) {
     };
   };
 
-  const del = function() {
+  const del = () => {
     if (output.textContent === '0') return;
     if (output.textContent.length === 1) {
         output.textContent = '0';
@@ -132,7 +128,7 @@ const opp = function(e) {
     };
 };
 
-const clear = function() {
+const clear = () => {
     output.textContent = '0';
     outputUpper.textContent = '';
     total = 0;
@@ -142,16 +138,14 @@ const clear = function() {
     opperator = null;
 };
 
-const equals = function() {
+const equals = () => {
     if (firstNum === null && currentNum === null) return;
     if (opperator === null) return;
     if (currentNum === null) {
         outputUpper.textContent += '0' + '=';
     }else outputUpper.textContent += currentNum + '=';
     total = operate(+firstNum, opperator, +currentNum);
-    if (!Number.isInteger(total)) {
-        output.textContent = +total.toFixed(10);
-    }else output.textContent = total;
+    output.textContent = Number.isInteger(total) ? total : +total.toFixed(10);
     firstNum = null
     secondNum = null;
     currentNum = total;
@@ -166,10 +160,10 @@ const equalsBtn = document.querySelector('#equals');
 const eraseBtn = document.querySelector('#erase');
 const clearBtn = document.querySelector('#clear');
 
-numberBtns.forEach(function(btn) {
+numberBtns.forEach(btn => {
     btn.addEventListener('click', num);
 });
-opperatorBtns.forEach(function(btn) {
+opperatorBtns.forEach((btn) => {
     btn.addEventListener('click', opp);
 });
 deciBtn.addEventListener('click', decimal);
@@ -177,12 +171,12 @@ equalsBtn.addEventListener('click', equals);
 eraseBtn.addEventListener('click', del);
 clearBtn.addEventListener('click', clear);
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', (e) => {
     e.preventDefault();
     let name = e.key;
-    const opps = ['+', '-', '*', '/', '^'];
+    const ops = ['+', '-', '*', '/', '^'];
     if (Number.isInteger(+name)) numKeyInput(name);
-    if (opps.includes(name)) oppKeyInput(name);
+    if (ops.includes(name)) oppKeyInput(name);
     if (name === '.') decimal();
     if (name === 'Backspace') del();
     if (name === 'Enter' || name === '=') equals();
