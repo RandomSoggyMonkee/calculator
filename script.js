@@ -160,7 +160,7 @@ const equalsBtn = document.querySelector('#equals');
 const eraseBtn = document.querySelector('#erase');
 const clearBtn = document.querySelector('#clear');
 
-numberBtns.forEach(btn => {
+numberBtns.forEach((btn) => {
     btn.addEventListener('click', num);
 });
 opperatorBtns.forEach((btn) => {
@@ -174,10 +174,12 @@ clearBtn.addEventListener('click', clear);
 document.addEventListener('keydown', (e) => {
     e.preventDefault();
     let name = e.key;
+    console.log(name);
     const ops = ['+', '-', '*', '/', '^'];
     if (Number.isInteger(+name)) numKeyInput(name);
     if (ops.includes(name)) oppKeyInput(name);
     if (name === '.') decimal();
     if (name === 'Backspace') del();
     if (name === 'Enter' || name === '=') equals();
+    if (name === 'Escape') clear();
 });
