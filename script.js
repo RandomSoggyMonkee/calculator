@@ -155,10 +155,10 @@ const equals = () => {
 
 const numberBtns = document.querySelectorAll('.numberBtn');
 const opperatorBtns = document.querySelectorAll('.opperator')
-const deciBtn = document.querySelector('#dec')
-const equalsBtn = document.querySelector('#equals');
-const eraseBtn = document.querySelector('#erase');
-const clearBtn = document.querySelector('#clear');
+const deciBtn = document.getElementById('.');
+const equalsBtn = document.querySelector('#Enter');
+const eraseBtn = document.querySelector('#Backspace');
+const clearBtn = document.querySelector('#Escape');
 
 numberBtns.forEach((btn) => {
     btn.addEventListener('click', num);
@@ -174,12 +174,17 @@ clearBtn.addEventListener('click', clear);
 document.addEventListener('keydown', (e) => {
     e.preventDefault();
     let name = e.key;
-    console.log(name);
     const ops = ['+', '-', '*', '/', '^'];
+    document.getElementById(name).classList.add('button-active');
     if (Number.isInteger(+name)) numKeyInput(name);
     if (ops.includes(name)) oppKeyInput(name);
     if (name === '.') decimal();
     if (name === 'Backspace') del();
     if (name === 'Enter' || name === '=') equals();
     if (name === 'Escape') clear();
+});
+
+document.addEventListener('keyup', (e) => {
+    e.preventDefault();
+    document.getElementById(e.key).classList.remove('button-active');
 });
