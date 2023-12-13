@@ -36,7 +36,7 @@ h1 {
     background-color: white;
 }
 
-p {
+main p {
     display: flex;
     justify-content: end;
     overflow: hidden;
@@ -65,13 +65,13 @@ button {
     border-radius: 4px;
 }
 
-button:active { 
+button:active,
+.button-active { 
     box-shadow: none;
-    transform: scale(0.99);
+    transform: scale(0.9);
 }
 
-.numberBtn,
-#dec {
+.numberBtn {
     background-color: rgb(255, 255, 255);
 }
 
@@ -79,6 +79,6 @@ button:active {
     width: 94px;
 }
 
-#equals {
+#Enter {
     background-color: rgb(178, 224, 255);
 }
